@@ -15,5 +15,5 @@ To run dependency
 npm start server
 ```
 # More information about TypeScript
-[TypeScript ]( https://github.com/microsoft/TypeScript/blob/main/README.md)
+[TypeScript ]( https://github.com/microsoft/TypeScript)
 
