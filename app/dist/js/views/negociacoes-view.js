@@ -1,16 +1,6 @@
-import { Negociacoes } from "../models/negociacoes.js";
-
-
-
-export class NegociacoesView {
-
-    private elemento: HTMLInputElement;
-    
-    constructor(seletor: string){
-        this.elemento = document.querySelector(seletor);
-    }
-    
-    templente(negociacoes: Negociacoes): string {   
+import { View } from "./views.js";
+export class NegociacoesView extends View {
+    templente(negociacoes) {
         return `
             <table class="table table-hover table-bordered">
                 <thead>
@@ -22,23 +12,19 @@ export class NegociacoesView {
                     </tr>
                 </thead>
                 <tbody>
-                    ${negociacoes.lista().map( neg => {
-                        return `
+                    ${negociacoes.lista().map(neg => {
+            return `
                             <tr>
                                 <th>${new Intl.DateTimeFormat().format(neg.data)}</th>
                                 <th>${neg.quantidade}</th>
                                 <th>${neg.valor}</th>
                                 <th>${neg.volume}</th>
                             </tr>
-                        `
-                    }).join('')}
+                        `;
+        }).join('')}
                     
                 </tbody>
             </table>
-        `
-    }
-
-    update(negociacoes: Negociacoes):void {
-        this.elemento.innerHTML = this.templente(negociacoes);
+        `;
     }
 }
