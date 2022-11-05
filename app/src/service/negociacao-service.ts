@@ -14,7 +14,6 @@ export class NegociacaoService{
             )
             return negociacaoImport;
         })
-        .catch((reason:any) => { throw Error(`O servidor está inacessivel por favor verificar: ${reason}` ) });
         
     }
 

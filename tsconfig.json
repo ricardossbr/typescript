@@ -5,6 +5,7 @@
         "target": "ES6",
         "noEmitOnError": true,
         "removeComments": true,
+        "sourceMap": true,
         "noImplicitAny": true
     },
     "include": ["app/src/**/*"]
