@@ -6,3 +6,4 @@ export class View {
         this.elemento.innerHTML = this.templente(negociacoes);
     }
 }
+//# sourceMappingURL=views.js.map

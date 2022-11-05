@@ -28,3 +28,4 @@ export class NegociacoesView extends View {
         `;
     }
 }
+//# sourceMappingURL=negociacoes-view.js.map

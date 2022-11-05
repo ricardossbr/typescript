@@ -5,6 +5,11 @@ export class Negociacao {
         this.quantidade = quantidade;
         this.valor = valor;
     }
+    ehIgual(negociacao) {
+        return this._data === negociacao._data
+            && this.quantidade === negociacao.quantidade
+            && this.valor === negociacao.valor;
+    }
     imprimiNegociacoes() {
         return `
             ****** Negociação ******
@@ -26,3 +31,4 @@ export class Negociacao {
             && (data.getDay() + 1) < DiasDaSemana.SABADO;
     }
 }
+//# sourceMappingURL=negociacao.js.map

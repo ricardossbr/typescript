@@ -17,3 +17,4 @@ if (btnImportar) {
 else {
     throw Error('Botão Importar negociações não encontrado!');
 }
+//# sourceMappingURL=app.js.map

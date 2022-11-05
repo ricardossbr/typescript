@@ -11,6 +11,7 @@ import { Negociacao } from '../models/negociacao.js';
 import { Negociacoes } from '../models/negociacoes.js';
 import { NegociacaoService } from '../service/negociacao-service.js';
 import { Imprimi } from '../util/imprimi.js';
+import { MensagemViewError } from '../views/mensagem-view-error.js';
 import { MensagemView } from '../views/mensagem-view.js';
 import { NegociacoesView } from '../views/negociacoes-view.js';
 export class NegociacaoController {
@@ -29,14 +30,20 @@ export class NegociacaoController {
         this.limparFormulario();
     }
     importarNegociacoes() {
-        if (this.negociacoesJafoiImportada)
+        if (this.negociacoesJafoiImportada) {
+            this.updateView('Todas as negociações, já foram importadas... não há novas!', true);
             throw Error('As negociações já foram importadas!');
+        }
         this.service.getNegociacoesImportadas()
             .then(listNegociacao => listNegociacao.forEach(negociacao => this.negociacoes.adiciona(negociacao)))
-            .finally(() => {
+            .then(() => {
             this.updateView('Negociações importadas com sucesso!');
-            this.negociacoesJafoiImportada = true;
             Imprimi(this.negociacoes, new Negociacao(new Date, 1, 2), new Negociacao(new Date, 1000, 2000), new Negociacao(new Date, 30000, 40000));
+            this.negociacoesJafoiImportada = true;
+        })
+            .catch((reason) => {
+            this.updateView('Error ao tentar fazer a importação, verifique se servidor está acessivel!', true);
+            throw Error(`O servidor está inacessivel por favor verificar: ${reason}`);
         });
     }
     criaNegociacao() {
@@ -57,8 +64,13 @@ export class NegociacaoController {
         this.inputValor.value = '';
         this.inputData.focus();
     }
-    updateView(mensagem = '') {
+    updateView(mensagem = '', msgError = false) {
         this.negociacoesView.update(this.negociacoes);
+        if (msgError) {
+            const msgErrorView = new MensagemViewError('#mensagemView');
+            msgErrorView.update(mensagem);
+            return;
+        }
         mensagem != '' && this.mensagemView.update(mensagem);
     }
 }
@@ -75,3 +87,4 @@ __decorate([
     inspect(),
     logTimeExecution()
 ], NegociacaoController.prototype, "adiciona", null);
+//# sourceMappingURL=negociacao-controller.js.map
