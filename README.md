@@ -2,7 +2,7 @@
 Studying  typescript for improving my knowledge about this tool for help me in front end... :)
 
 
-## To intall and run 
+## To intall and run Typescript project and api
 To install dependency
 ```bash
 npm install 
