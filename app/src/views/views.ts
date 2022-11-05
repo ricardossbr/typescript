@@ -1,4 +1,6 @@
-import { Negociacoes } from "../models/negociacoes";
+import { inspect } from "../decorators/inspect.js";
+import { logTimeExecution } from "../decorators/log-time-execution.js";
+
 
 export abstract class View<T>{
     protected elemento: HTMLInputElement;
@@ -9,6 +11,8 @@ export abstract class View<T>{
 
     protected abstract templente(negociacoes: T): string;
 
+    //@inspect()
+    //@logTimeExecution()
     update(negociacoes: T):void {
         this.elemento.innerHTML = this.templente(negociacoes);
     }

@@ -5,10 +5,14 @@ var api = {}
 api.dados = function(req, res) {
 
     res.json([
-        { montante: 200.5, vezes: 2 },
-        { montante: 100.2, vezes: 5 },
-        { montante: 50.5, vezes: 1 },
-        { montante: 70.5, vezes: 2 }
+        { price: 50.5, quantity: 1 },
+        { price: 200.5, quantity: 2 },
+        { price: 100.2, quantity: 5 },
+        { price: 10.5, quantity: 100 },
+        { price: 3000.5, quantity: 2000 },
+        { price: 4000.2, quantity: 10000 },
+        { price: 1.5, quantity: 12 },
+        { price: 0.50, quantity: 22 }
     ]);
     
 };
