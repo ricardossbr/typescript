@@ -5,6 +5,15 @@ export class Negociacao {
         this.quantidade = quantidade;
         this.valor = valor;
     }
+    imprimiNegociacoes() {
+        return `
+            ****** Negociação ******
+            Data: ${this._data}
+            Quantidade: ${this.quantidade}
+            valor R$: ${this.valor}
+            Volume: ${this.volume}
+        `;
+    }
     get volume() {
         return this.quantidade * this.valor;
     }

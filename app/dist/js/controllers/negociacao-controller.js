@@ -4,9 +4,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+import { domInject } from '../decorators/dom-injector.js';
+import { inspect } from '../decorators/inspect.js';
 import { logTimeExecution } from '../decorators/log-time-execution.js';
 import { Negociacao } from '../models/negociacao.js';
 import { Negociacoes } from '../models/negociacoes.js';
+import { NegociacaoService } from '../service/negociacao-service.js';
+import { Imprimi } from '../util/imprimi.js';
 import { MensagemView } from '../views/mensagem-view.js';
 import { NegociacoesView } from '../views/negociacoes-view.js';
 export class NegociacaoController {
@@ -14,9 +18,8 @@ export class NegociacaoController {
         this.negociacoes = new Negociacoes();
         this.negociacoesView = new NegociacoesView('#negociacoesView');
         this.mensagemView = new MensagemView('#mensagemView');
-        this.inputData = document.querySelector('#data');
-        this.inputQuantidade = document.querySelector('#quantidade');
-        this.inputValor = document.querySelector('#valor');
+        this.negociacoesJafoiImportada = false;
+        this.service = new NegociacaoService();
         this.updateView();
     }
     adiciona() {
@@ -24,6 +27,17 @@ export class NegociacaoController {
         this.negociacoes.adiciona(negociacao);
         this.updateView('Negociação Add com sucesso!');
         this.limparFormulario();
+    }
+    importarNegociacoes() {
+        if (this.negociacoesJafoiImportada)
+            throw Error('As negociações já foram importadas!');
+        this.service.getNegociacoesImportadas()
+            .then(listNegociacao => listNegociacao.forEach(negociacao => this.negociacoes.adiciona(negociacao)))
+            .finally(() => {
+            this.updateView('Negociações importadas com sucesso!');
+            this.negociacoesJafoiImportada = true;
+            Imprimi(this.negociacoes, new Negociacao(new Date, 1, 2), new Negociacao(new Date, 1000, 2000), new Negociacao(new Date, 30000, 40000));
+        });
     }
     criaNegociacao() {
         const exp = /-/g;
@@ -49,5 +63,15 @@ export class NegociacaoController {
     }
 }
 __decorate([
+    domInject('#data')
+], NegociacaoController.prototype, "inputData", void 0);
+__decorate([
+    domInject('#quantidade')
+], NegociacaoController.prototype, "inputQuantidade", void 0);
+__decorate([
+    domInject('#valor')
+], NegociacaoController.prototype, "inputValor", void 0);
+__decorate([
+    inspect(),
     logTimeExecution()
 ], NegociacaoController.prototype, "adiciona", null);
